@@ -1,0 +1,42 @@
+# Secrets και τοπική ρύθμιση
+.env
+.env.*
+.streamlit/secrets.toml
+
+# Δεδομένα που ζουν στα volumes, όχι στο image
+*.db
+**/*.db
+*.sqlite3
+uploads/
+
+# Python / virtual environments / caches
+venv/
+.venv/
+env/
+__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+*.log
+
+# Git και IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+.devcontainer/
+
+# Αρχεία Docker 
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Τεκμηρίωση, παρουσιάσεις, δείγματα
+README.md
+LICENSE
+NOTES.md
+STATUS.md
+*.zip
+assets/
+report/
+postman/

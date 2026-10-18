@@ -1,0 +1,34 @@
+# Python / Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.log
+
+# Virtual Environments
+venv/
+.venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Database
+*.db
+*.sqlite3
+
+# Uploads
+uploads/
+
+# IDEs / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Streamlit (config.toml is tracked; secrets are not)
+.streamlit/secrets.toml
+
+.devcontainer/
+
+NOTES.md
+STATUS.md

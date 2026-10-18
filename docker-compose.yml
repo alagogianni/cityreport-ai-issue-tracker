@@ -1,0 +1,36 @@
+services:
+  api:
+    build: .
+    image: cityreport_app:latest
+    container_name: cityreport_api
+    # Εκτέλεση του script αρχικοποίησης (seeding) και στη συνέχεια εκκίνηση του server
+    command: sh -c "python docker_init.py && python run.py"
+    ports:
+      - "5000:5000"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    volumes:
+      #Σύνδεση των volumes για μόνιμη (persistent) αποθήκευση δεδομένων (ώστε να μη χάνονται στα restarts)
+      - db_data:/app/src/database
+      - uploads_data:/app/uploads
+
+  dashboard:
+    image: cityreport_app:latest
+    container_name: cityreport_dashboard
+    # Εκτέλεση ελέγχου της βάσης και εκκίνηση του Streamlit (με host 0.0.0.0 για να είναι προσβάσιμο εκτός container)
+    command: sh -c "python src/database/db.py && streamlit run dashboard.py --server.address=0.0.0.0 --server.port=8501 --server.headless=true"
+    ports:
+      - "8501:8501"
+    environment:
+      - OWM_API_KEY=${OWM_API_KEY}
+    volumes:
+    # Το Dashboard "βλέπει" τα ίδια volumes με το API, ώστε να διαβάζουν την ίδια βάση και τις ίδιες φωτογραφίες
+      - db_data:/app/src/database
+      - uploads_data:/app/uploads
+    depends_on:
+      - api
+
+# Δήλωση των ονοματισμένων volumes (Named Volumes) που διαχειρίζεται το Docker
+volumes:
+  db_data:
+  uploads_data:

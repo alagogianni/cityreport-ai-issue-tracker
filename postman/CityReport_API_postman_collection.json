@@ -1,0 +1,184 @@
+{
+  "info": {
+    "_postman_id": "4beec15a-7c69-4e3b-bcf3-9e37a770d8ab",
+    "name": "CityReport API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Υποβολή Νέας Αναφοράς (POST)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Σκουπίδια παντού\",\r\n    \"description\": \"Αμεση προσθήκη κάδων στη γειτονιά\",\r\n    \"latitude\": 37.785900,\r\n    \"longitude\": 23.68879\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/problems",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "problems"
+          ]
+        },
+        "description": "Endpoint για την υποβολή νέου προβλήματος από τον πολίτη."
+      },
+      "response": []
+    },
+    {
+      "name": "2. Αναζήτηση & Φιλτράρισμα Προβλημάτων",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/problems?category_id=1&status_id=1&sort=created_at",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "problems"
+          ],
+          "query": [
+            {
+              "key": "category_id",
+              "value": "1"
+            },
+            {
+              "key": "status_id",
+              "value": "1"
+            },
+            {
+              "key": "sort",
+              "value": "created_at"
+            }
+          ]
+        },
+        "description": "Endpoint για την αναζήτηση και φιλτράρισμα των προβλημάτων από τους πολίτες με query parameters."
+      },
+      "response": []
+    },
+    {
+      "name": "3. Ενημέρωση Αναφοράς από Πολίτη",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"description\": \"ΝΕΑ ΠΕΡΙΓΡΑΦΗ: Το πρόβλημα χειροτέρεψε πιο πολύ.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/problems/TK-XXXXXX",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "problems",
+            "TK-XXXXXX"
+          ]
+        },
+        "description": "Endpoint που επιτρέπει στον πολίτη να τροποποιήσει ή να προσθέσει πληροφορίες στην περιγραφή ενός υπάρχοντος προβλήματος χρησιμοποιώντας το Ticket ID (αντικαταστήστε το TK-PLACEHOLDER με ένα πραγματικό Ticket ID)."
+      },
+      "response": []
+    },
+    {
+      "name": "4. Upvote Προβλήματος",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/problems/TK-XXXXXX/upvote",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "problems",
+            "TK-XXXXXX",
+            "upvote"
+          ]
+        },
+        "description": "Endpoint για την υποστήριξη / upvote ενός προβλήματος από άλλους πολίτες χρησιμοποιώντας το Ticket ID (αντικαταστήστε το TK-PLACEHOLDER με ένα πραγματικό Ticket ID)."
+      },
+      "response": []
+    },
+    {
+      "name": "5. Παρακολούθηση Αναφοράς (GET by Ticket ID)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/problems/TK-XXXXXX",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "problems",
+            "TK-XXXXXX"
+          ]
+        },
+        "description": "Endpoint για την παρακολούθηση της πορείας μιας συγκεκριμένης αναφοράς από τον πολίτη χρησιμοποιώντας το Ticket ID (αντικαταστήστε το TK-PLACEHOLDER με ένα πραγματικό Ticket ID)."
+      },
+      "response": []
+    },
+    {
+      "name": "6. Upload Φωτογραφίας",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "photo",
+              "type": "file",
+              "description": "σκουπίδια",
+              "src": "/path/to/photo.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/problems/TK-XXXXXX/photo",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "problems",
+            "TK-XXXXXX",
+            "photo"
+          ]
+        },
+        "description": "Endpoint για το upload φωτογραφίας σε υπάρχουσα αναφορά. Χρησιμοποιεί multipart/form-data με πεδίο 'photo'. Αντικαταστήστε το TK-PLACEHOLDER με ένα πραγματικό Ticket ID."
+      },
+      "response": []
+    }
+  ]
+}
